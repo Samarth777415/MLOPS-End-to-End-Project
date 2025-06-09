@@ -26,8 +26,8 @@ stages:
       nfiles: 2
     - path: src/data/data_preprocessing.py
       hash: md5
-      md5: f2ffa8bae44fba62fd1aa1e6a51d8b60
-      size: 2836
+      md5: 021c86047744e60f114b0e7ca174f75b
+      size: 2528
     outs:
     - path: predata/interim
       hash: md5
@@ -44,35 +44,66 @@ stages:
       nfiles: 2
     - path: src/features/feature_engineering.py
       hash: md5
-      md5: c96ddba93c5df66a7ecc3edebd362914
-      size: 3362
+      md5: 61106c0d94fbf4120cceddf08ce86082
+      size: 3364
     params:
       params.yaml:
-        feature_engineering.max_features: 50
+        feature_engineering.max_features: 1000
     outs:
     - path: models/vectorizer.pkl
       hash: md5
-      md5: ac45e21fd2df62bd50c5ebac6d827ed6
-      size: 1866
+      md5: b4310ec4c1bab33cf26bb59c10ccba52
+      size: 36562
     - path: predata/processed
       hash: md5
-      md5: eac3fba7627aa7a0245fbe78c32c88f8.dir
-      size: 51883
+      md5: 91281e2e232dca8776ae51ac0a916d59.dir
+      size: 2442680
       nfiles: 2
   model_building:
     cmd: python src/model/model_building.py
     deps:
     - path: predata/processed
       hash: md5
-      md5: eac3fba7627aa7a0245fbe78c32c88f8.dir
-      size: 51883
+      md5: 91281e2e232dca8776ae51ac0a916d59.dir
+      size: 2442680
       nfiles: 2
     - path: src/model/model_building.py
       hash: md5
-      md5: a359d631fd04d4ae9ed5a0d2a6e52489
-      size: 1805
+      md5: 904bdf23a77065c23223ac58025d9039
+      size: 1807
     outs:
     - path: models/model.pkl
       hash: md5
-      md5: 5f1a6160104a859f55e916790595f04a
-      size: 1115
+      md5: 61a68da30b16dfefd01b020a9b5d2e3d
+      size: 8717
+  model_evaluation:
+    cmd: python src/model/model_evaluation.py
+    deps:
+    - path: models/model.pkl
+      hash: md5
+      md5: 61a68da30b16dfefd01b020a9b5d2e3d
+      size: 8717
+    - path: src/model/model_evaluation.py
+      hash: md5
+      md5: f3fefd872386e79f0fa788f52ca8ee09
+      size: 5213
+    outs:
+    - path: reports/experiment_info.json
+      hash: md5
+      md5: 195d346f19d411aa3e8590328b32dace
+      size: 82
+    - path: reports/metrics.json
+      hash: md5
+      md5: 93a3401018d512ef536c1a7b0afc989a
+      size: 133
+  model_registration:
+    cmd: python src/model/register_model.py
+    deps:
+    - path: reports/experiment_info.json
+      hash: md5
+      md5: 195d346f19d411aa3e8590328b32dace
+      size: 82
+    - path: src/model/register_model.py
+      hash: md5
+      md5: eb2d48d6657bb8cad59f6558461bae95
+      size: 2955
