@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 notebooks/
+local_s3/
+predata/
+models/
 # C extensions
 *.so
 
