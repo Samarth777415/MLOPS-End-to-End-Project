@@ -1,10 +1,10 @@
-# promote model
+# promote model using tags instead of stages
 
 import os
 import mlflow
 
 def promote_model():
-    # Set up DagsHub credentials for MLflow tracking
+    # Get DagsHub token from environment
     dagshub_token = os.getenv("CAPSTONE_TEST")
     if not dagshub_token:
         raise EnvironmentError("CAPSTONE_TEST environment variable is not set")
@@ -16,31 +16,37 @@ def promote_model():
     repo_owner = "gitesamarth"
     repo_name = "MLOPS-End-to-End-Project"
 
-    # Set up MLflow tracking URI
+    # Set MLflow tracking URI
     mlflow.set_tracking_uri(f'{dagshub_url}/{repo_owner}/{repo_name}.mlflow')
-
     client = mlflow.MlflowClient()
 
     model_name = "my_model"
-    # Get the latest version in staging
-    latest_version_staging = client.get_latest_versions(model_name, stages=["Staging"])[0].version
 
-    # Archive the current production model
-    prod_versions = client.get_latest_versions(model_name, stages=["Production"])
+    # Get all model versions
+    all_versions = client.search_model_versions(f"name='{model_name}'")
+
+    # Identify versions by tag
+    staging_version = None
+    prod_versions = []
+
+    for v in all_versions:
+        tags = {t.key: t.value for t in client.get_model_version_tags(model_name, v.version)}
+        if tags.get("stage") == "Staging":
+            staging_version = v.version
+        elif tags.get("stage") == "Production":
+            prod_versions.append(v.version)
+
+    if staging_version is None:
+        raise ValueError("No model version tagged as 'Staging' found.")
+
+    # Archive current production versions (remove 'Production' tag, mark as Archived)
     for version in prod_versions:
-        client.transition_model_version_stage(
-            name=model_name,
-            version=version.version,
-            stage="Archived"
-        )
+        client.delete_model_version_tag(model_name, version, "stage")
+        client.set_model_version_tag(model_name, version, "stage", "Archived")
 
-    # Promote the new model to production
-    client.transition_model_version_stage(
-        name=model_name,
-        version=latest_version_staging,
-        stage="Production"
-    )
-    print(f"Model version {latest_version_staging} promoted to Production")
+    # Promote staging version to production
+    client.set_model_version_tag(model_name, staging_version, "stage", "Production")
+    print(f"Model version {staging_version} promoted to Production")
 
 if __name__ == "__main__":
     promote_model()
