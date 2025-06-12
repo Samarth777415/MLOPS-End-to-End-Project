@@ -89,7 +89,7 @@ def main():
         train_df, test_df = apply_bow(train_data, test_data, max_features)
 
         save_data(train_df, os.path.join("./predata", "processed", "train_tfidf.csv"))
-        save_data(test_df, os.path.join("./predata", "processed", "test_tfidi.csv"))
+        save_data(test_df, os.path.join("./predata", "processed", "test_tfidif.csv"))
 
         logging.info("Feature engineering completed successfully.")
     except Exception as e:
