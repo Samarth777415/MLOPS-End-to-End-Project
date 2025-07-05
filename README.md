@@ -1,100 +1,119 @@
-### 🧠 End-to-End MLOps for NLP
+# 🧠 End-to-End MLOps for NLP
 
-This project demonstrates a complete MLOps pipeline for an NLP-based sentiment analysis application. From model development and versioning to containerized deployment and monitoring, this repository showcases best practices for scalable and reproducible machine learning in production.
+A complete MLOps pipeline for deploying a sentiment analysis application using modern DevOps tools and machine learning best practices. This project integrates data versioning, experiment tracking, containerization, orchestration, CI/CD automation, and real-time monitoring into a robust production-ready NLP workflow.
 
-## 🚀 Project Overview
+## 📌 Project Highlights
 
-- **Task**: Sentiment Analysis (Binary Classification)
-- **Objective**: Build, deploy, and monitor an NLP model using end-to-end MLOps workflows.
-- **Accuracy**: Achieved 95% on validation data
+- 🔍 **Sentiment Analysis Model** with 95% accuracy
+- 💾 **Version Control** for code, data, and models using Git, DVC, and MLflow
+- 🐳 **Dockerized Microservice** for consistent deployment
+- ☸️ **Kubernetes (EKS)** for scalable orchestration
+- 🚀 **CI/CD** with GitHub Actions for automated deployment
+- 📊 **Monitoring** using Prometheus and Grafana
+- ☁️ **Cloud Infrastructure** on AWS (ECR, EKS, S3)
 
-## 🧩 Key Features
+---
 
-- ✅ **Model Training & Evaluation** with Scikit-learn
-- 📦 **Data & Model Versioning** using Git, DVC, and MLflow (via DagsHub)
-- 🐳 **Containerization** with Docker for consistent builds
-- ☸️ **Orchestration** with Kubernetes on AWS EKS
-- 🛠 **Deployment** using AWS ECR and CI/CD with GitHub Actions
-- 📊 **Monitoring** with Prometheus and Grafana
-- ☁️ **Cloud Storage** via AWS S3
 
-## 🧪 Tech Stack
+## ⚙️ Tech Stack
 
 | Category         | Tools & Technologies                                |
 |------------------|-----------------------------------------------------|
-| Language         | Python                                              |
-| ML Framework     | Scikit-learn                                        |
-| Versioning       | Git, DVC, MLflow, DagsHub                           |
-| Containerization | Docker                                              |
-| CI/CD            | GitHub Actions                                      |
-| Orchestration    | Kubernetes (AWS EKS)                                |
-| Deployment       | AWS ECR, AWS S3                                     |
-| Monitoring       | Prometheus, Grafana                                 |
+| **Language**     | Python                                              |
+| **ML Framework** | Scikit-learn                                        |
+| **Versioning**   | Git, DVC, MLflow, DagsHub                           |
+| **CI/CD**        | GitHub Actions                                      |
+| **Container**    | Docker                                              |
+| **Cloud**        | AWS ECR, S3, EKS                                    |
+| **Orchestration**| Kubernetes                                          |
+| **Monitoring**   | Prometheus, Grafana                                 |
 
-## 📂 Repository Structure
+---
 
-.
-├── data/ # Raw and processed datasets (tracked by DVC)
-├── src/ # Source code (training, preprocessing, utils)
-├── models/ # Saved models (versioned with MLflow)
-├── docker/ # Dockerfiles and scripts for containerization
-├── kubernetes/ # Deployment configs for EKS
-├── monitoring/ # Prometheus and Grafana setup
-├── .github/workflows/ # CI/CD pipelines (GitHub Actions)
-├── dvc.yaml # DVC pipeline definition
-├── mlflow_tracking/ # MLflow setup and experiments
-└── README.md # Project documentation
+## 🚀 Quickstart
 
-pgsql
-Copy
-Edit
+### 🔧 Setup Environment
 
-## 🔧 Setup & Run Locally
-
-### 1. Clone the Repository
 ```bash
-git clone https://github.com/<your-username>/End-to-End-MLOps-for-NLP.git
+git clone https://github.com/Samarth777415/End-to-End-MLOps-for-NLP.git
 cd End-to-End-MLOps-for-NLP
-2. Set Up Virtual Environment
-bash
-Copy
-Edit
 python -m venv venv
-source venv/bin/activate  # or venv\Scripts\activate on Windows
+source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
-3. Pull Data and Model using DVC
+📦 Pull Data & Models via DVC
 bash
 Copy
 Edit
 dvc pull
-4. Train the Model
+🧠 Train Model
 bash
 Copy
 Edit
 python src/train.py
-5. Track with MLflow
+📊 Launch MLflow UI
 bash
 Copy
 Edit
 mlflow ui
-🚢 Deployment
-Docker Build
+# Access it at http://localhost:5000
+🐳 Docker Build & Run
 bash
 Copy
 Edit
 docker build -t sentiment-app .
-Push to AWS ECR and Deploy on EKS
-See kubernetes/ folder for YAML configurations.
+docker run -p 8000:8000 sentiment-app
+☸️ Kubernetes Deployment (AWS EKS)
+Update ECR image name in kubernetes/deployment.yaml
 
-📈 Monitoring
-Prometheus and Grafana are configured to track model performance and resource usage in real time.
-Refer to monitoring/ directory for setup instructions.
+Apply Kubernetes configs:
 
-📃 License
+bash
+Copy
+Edit
+kubectl apply -f kubernetes/
+📈 Monitoring Setup
+Prometheus and Grafana dashboards are included to monitor:
+
+Model latency
+
+API uptime
+
+Resource usage
+
+See monitoring/ for setup steps.
+
+📁 MLflow & DVC Example
+All experiments are tracked using MLflow
+
+Dataset and model versions are managed via DVC + DagsHub
+
+📄 License
 This project is licensed under the MIT License.
 
-🤝 Acknowledgements
-Inspired by best practices from the MLOps community
+🌐 Live Demo / Deployment
+Coming soon — hosted demo on AWS EKS cluster.
 
-Thanks to open-source contributors and tool developers
+🔗 Links
+GitHub Repo: End-to-End-MLOps-for-NLP
+
+Author: Samarth
+
+🙌 Acknowledgements
+DagsHub
+
+MLflow
+
+Scikit-learn
+
+Docker
+
+Prometheus
+
+Grafana
+
+
+
+
+
+
 
