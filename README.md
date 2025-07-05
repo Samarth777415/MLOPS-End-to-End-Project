@@ -30,73 +30,65 @@ A complete MLOps pipeline for deploying a sentiment analysis application using m
 
 ---
 
-## 🚀 Quickstart
-
-### 🔧 Setup Environment
-
+🚀 Quickstart
+🔧 Setup Environment
 ```bash
+
 git clone https://github.com/Samarth777415/End-to-End-MLOps-for-NLP.git
 cd End-to-End-MLOps-for-NLP
 python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+source venv/bin/activate  # For Windows: venv\Scripts\activate
 pip install -r requirements.txt
+```
 📦 Pull Data & Models via DVC
-bash
-Copy
-Edit
+```bash
 dvc pull
+```
 🧠 Train Model
-bash
-Copy
-Edit
+```bash
 python src/train.py
+```
 📊 Launch MLflow UI
-bash
-Copy
-Edit
+```bash
 mlflow ui
-# Access it at http://localhost:5000
+Access it at: http://localhost:5000
+```
 🐳 Docker Build & Run
-bash
-Copy
-Edit
+```bash
 docker build -t sentiment-app .
 docker run -p 8000:8000 sentiment-app
+```
 ☸️ Kubernetes Deployment (AWS EKS)
-Update ECR image name in kubernetes/deployment.yaml
+Update the ECR image name in kubernetes/deployment.yaml.
 
-Apply Kubernetes configs:
+Apply the Kubernetes configurations:
 
-bash
-Copy
-Edit
+```bash
 kubectl apply -f kubernetes/
+```
 📈 Monitoring Setup
-Prometheus and Grafana dashboards are included to monitor:
+Prometheus and Grafana dashboards are integrated to monitor:
 
-Model latency
+📍 Model latency
 
-API uptime
+⏱️ API uptime
 
-Resource usage
+📊 Resource usage
 
-See monitoring/ for setup steps.
+Setup instructions are available in the monitoring/ directory.
 
 📁 MLflow & DVC Example
-All experiments are tracked using MLflow
+🧪 All experiments are tracked using MLflow.
 
-Dataset and model versions are managed via DVC + DagsHub
+📦 Dataset and model versioning is handled via DVC and DagsHub.
 
 📄 License
 This project is licensed under the MIT License.
+See the LICENSE file for details.
 
 🌐 Live Demo / Deployment
 Coming soon — hosted demo on AWS EKS cluster.
 
-🔗 Links
-GitHub Repo: End-to-End-MLOps-for-NLP
-
-Author: Samarth
 
 🙌 Acknowledgements
 DagsHub
@@ -110,10 +102,3 @@ Docker
 Prometheus
 
 Grafana
-
-
-
-
-
-
-
